@@ -1,13 +1,40 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useState, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import { Form, Button, Row, Col } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
 import FormContainer from "../components/FormContainer"
+import { useLoginMutation } from "../slice/userapislice"
+import { setCredentials } from "../slice/authslice"
+import { toast } from "react-toastify"
+// setCredentials
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const [login, { isLoading }] = useLoginMutation()
+
+    const { userInfo } = useSelector((state) => state.auth)
+
+    useEffect(() => {
+        if (userInfo) {
+            navigate("/")
+
+        }
+    }, [userInfo, navigate])
+
+
     const submitHandler = async (e) => {
         e.preventDefault()
-        console.log("submit");
+        try {
+            const response = await login({ email, password }).unwrap()
+            dispatch(setCredentials({ ...response }))
+            navigate("/")
+        } catch (err) {
+            toast.error(err?.data?.message || err.error);
+        }
     }
     return (
         <> <FormContainer>

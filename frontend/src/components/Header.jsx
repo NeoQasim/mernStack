@@ -1,7 +1,8 @@
 
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { LinkContainer } from "react-router-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
 
 const Header = () => {
     return (
@@ -14,6 +15,7 @@ const Header = () => {
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav'>
                         <Nav className='ms-auto'>
+                            {}
                             <LinkContainer to="/login">
                                 <Nav.Link >
                                     <FaSignInAlt /> Sign In
