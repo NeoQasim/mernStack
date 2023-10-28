@@ -1,7 +1,10 @@
 import { Container, Card, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
+import Loader from './Loader';
 
 const Hero = () => {
+    const userInfo = useSelector((state) => state.auth)
     return (
         <div className=' py-5'>
             <Container className='d-flex justify-content-center'>
@@ -13,16 +16,28 @@ const Hero = () => {
                         Bootstrap library
                     </p>
                     <div className='d-flex'>
-                        <LinkContainer to="/login">
-                            <Button variant='primary' className='me-3'>
-                                Sign In
-                            </Button>
-                        </LinkContainer>
-                        <LinkContainer to="/register">
-                            <Button variant='secondary' >
-                                Sign UP
-                            </Button>
-                        </LinkContainer>
+
+                        {userInfo ? (<>
+
+                            <h2>You are Already Logged in
+                                <h4>and your name is <span className='text-danger fw-bolder fs-2'>{"d"}</span></h4></h2>
+                            {/* <Loader /> */}
+                        </>)
+                            :
+                            (<> <LinkContainer to="/login">
+                                <Button variant='primary' className='me-3'>
+                                    Sign In
+                                </Button>
+                            </LinkContainer>
+                                <LinkContainer to="/register">
+                                    <Button variant='secondary' >
+                                        Sign UP
+                                    </Button>
+                                </LinkContainer>
+                            </>)
+                        }
+
+
                     </div>
                 </Card>
             </Container>
