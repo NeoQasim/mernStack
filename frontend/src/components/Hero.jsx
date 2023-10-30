@@ -1,10 +1,11 @@
 import { Container, Card, Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import Loader from './Loader';
+// import Loader from './Loader';
 
 const Hero = () => {
     const userInfo = useSelector((state) => state.auth)
+    // console.log(userInfo);   
     return (
         <div className=' py-5'>
             <Container className='d-flex justify-content-center'>
@@ -17,11 +18,13 @@ const Hero = () => {
                     </p>
                     <div className='d-flex'>
 
-                        {userInfo ? (<>
+                        {userInfo.userInfo ? (<>
 
                             <h2>You are Already Logged in
-                                <h4>and your name is <span className='text-danger fw-bolder fs-2'>{"d"}</span></h4></h2>
+                                <h4>and your name is <span className='text-danger fw-bolder fs-2'>{userInfo.userInfo.name}</span></h4>
+                                <h4>and your email is <span className='text-danger fw-bolder fs-2'>{userInfo.userInfo.email}</span></h4></h2>
                             {/* <Loader /> */}
+
                         </>)
                             :
                             (<> <LinkContainer to="/login">
